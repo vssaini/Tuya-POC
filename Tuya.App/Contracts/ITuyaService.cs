@@ -2,5 +2,6 @@
 
 public interface ITuyaService
 {
-    
+    Task GetDeviceInfoAsync();
+    Task<bool> ToggleDeviceSwitchAsync();
 }
