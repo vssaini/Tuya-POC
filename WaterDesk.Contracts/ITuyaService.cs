@@ -1,4 +1,4 @@
-﻿namespace Tuya.App.Contracts;
+﻿namespace WaterDesk.Contracts;
 
 public interface ITuyaService
 {

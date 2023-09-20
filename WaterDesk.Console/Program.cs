@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Tuya.App;
-using Tuya.App.Services;
+using WaterDesk.Console;
+using WaterDesk.Services;
 
 var host = Startup.CreateHostBuilder();
 

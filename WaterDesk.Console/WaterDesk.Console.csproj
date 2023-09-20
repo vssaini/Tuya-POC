@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>Tuya.App</RootNamespace>
+    <RootNamespace>WaterDesk.Console</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <UserSecretsId>5c9d6132-2b96-4ca1-ba50-bdd9b138f6ed</UserSecretsId>
@@ -18,12 +18,10 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Tuya.Net\Tuya.Net.csproj" />
+    <ProjectReference Include="..\WaterDesk.Contracts\WaterDesk.Contracts.csproj" />
+    <ProjectReference Include="..\WaterDesk.Models\WaterDesk.Models.csproj" />
+    <ProjectReference Include="..\WaterDesk.Services\WaterDesk.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace Tuya.App.Models;
+﻿namespace WaterDesk.Models;
 
 public class TuyaSetting
 {

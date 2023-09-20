@@ -2,11 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Tuya.App.Contracts;
-using Tuya.App.Models;
-using Tuya.App.Services;
+using WaterDesk.Contracts;
+using WaterDesk.Models;
+using WaterDesk.Services;
 
-namespace Tuya.App;
+namespace WaterDesk;
 
 internal static class Startup
 {
@@ -30,7 +30,7 @@ internal static class Startup
         builder.SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
-            .AddUserSecrets<Program>()
+            .AddUserSecrets<Main>()
             .AddEnvironmentVariables();
 
         return builder;
@@ -49,6 +49,7 @@ internal static class Startup
             .ConfigureServices((_, services) =>
             {
                 services.BindSettings(config);
+                services.AddSingleton<Main>();
                 services.AddTransient<ITuyaService, TuyaService>();
             })
             .UseSerilog()

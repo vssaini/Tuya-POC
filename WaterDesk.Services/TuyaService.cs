@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
-using Tuya.App.Contracts;
-using Tuya.App.Models;
 using Tuya.Net;
 using Tuya.Net.Data;
 using Tuya.Net.Data.Settings;
+using WaterDesk.Contracts;
+using WaterDesk.Models;
 
-namespace Tuya.App.Services;
+namespace WaterDesk.Services;
 
 public class TuyaService : ITuyaService
 {
