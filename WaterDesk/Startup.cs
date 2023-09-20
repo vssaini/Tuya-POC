@@ -50,7 +50,7 @@ internal static class Startup
             {
                 services.BindSettings(config);
                 services.AddSingleton<Main>();
-                services.AddTransient<ITuyaService, TuyaService>();
+                services.AddTransient<IWaterDeskService, WaterDeskService>();
             })
             .UseSerilog()
             .Build();

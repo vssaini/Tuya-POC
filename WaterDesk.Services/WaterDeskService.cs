@@ -9,15 +9,24 @@ using WaterDesk.Models;
 
 namespace WaterDesk.Services;
 
-public class TuyaService : ITuyaService
+public class WaterDeskService : IWaterDeskService
 {
-    private readonly ILogger<TuyaService> _logger;
+    private readonly ILogger<WaterDeskService> _logger;
     private readonly TuyaSetting _tuya;
 
-    public TuyaService(IOptions<TuyaSetting> options, ILogger<TuyaService> logger)
+    public WaterDeskService(IOptions<TuyaSetting> options, ILogger<WaterDeskService> logger)
     {
         _logger = logger;
         _tuya = options.Value;
+    }
+
+    public async Task<List<Device>> GetDevicesAsync()
+    {
+        var client = GetTuyaClient();
+        var devices = await client.DeviceManager.GetDevicesAsync();
+
+        _logger.LogInformation("Retrieved {TotalDevices} devices", devices.Count);
+        return devices;
     }
 
     public async Task GetDeviceInfoAsync()

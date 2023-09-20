@@ -103,5 +103,7 @@ namespace Tuya.Net.IoT
         /// <param name="ct">Cancellation token.</param>
         /// <returns>True if the command set was executed successfully, false otherwise.</returns>
         public Task<bool> SendCommandListAsync(string deviceId, IList<Command> commands, CancellationToken ct = default);
+
+        Task<List<Device>> GetDevicesAsync(CancellationToken ct = default);
     }
 }

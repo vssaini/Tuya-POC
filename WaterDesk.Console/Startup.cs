@@ -49,7 +49,7 @@ internal static class Startup
             .ConfigureServices((_, services) =>
             {
                 services.BindSettings(config);
-                services.AddTransient<ITuyaService, TuyaService>();
+                services.AddTransient<IWaterDeskService, WaterDeskService>();
             })
             .UseSerilog()
             .Build();

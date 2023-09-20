@@ -9,12 +9,12 @@ namespace Tuya.Net.IoT
         /// <summary>
         /// Tuya client instance.
         /// </summary>
-        private readonly ITuyaClient client;
+        private readonly ITuyaClient _client;
 
         /// <summary>
         /// Logger instance.
         /// </summary>
-        private readonly ILogger? logger;
+        private readonly ILogger? _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceManager"/> class.
@@ -23,28 +23,36 @@ namespace Tuya.Net.IoT
         /// <param name="logger">Logger instance.</param>
         public DeviceManager(ITuyaClient client, ILogger? logger)
         {
-            this.logger = logger;
-            this.client = client;
+            this._logger = logger;
+            this._client = client;
+        }
+
+        public async Task<List<Device>> GetDevicesAsync(CancellationToken ct = default)
+        {
+            _logger?.LogInformation("Getting devices");
+            var devices = await _client.RequestAsync<List<Device>>(HttpMethod.Get, $"/v1.0/devices", cancellationToken: ct);
+
+            return devices ?? new List<Device>();
         }
 
         /// <inheritdoc />
         public async Task<Device?> GetDeviceAsync(string deviceId, CancellationToken ct = default)
         {
-            logger?.LogInformation("Getting device: {deviceId}", deviceId);
-            return await client.RequestAsync<Device?>(HttpMethod.Get, $"/v1.0/devices/{deviceId}", cancellationToken: ct);
+            _logger?.LogInformation("Getting device: {deviceId}", deviceId);
+            return await _client.RequestAsync<Device?>(HttpMethod.Get, $"/v1.0/devices/{deviceId}", cancellationToken: ct);
         }
 
         /// <inheritdoc />
         public async Task<DeviceInfo?> GetDeviceInfoAsync(string deviceId, CancellationToken ct = default)
         {
-            logger?.LogInformation("Getting device information: {deviceId}", deviceId);
-            return await client.RequestAsync<DeviceInfo?>(HttpMethod.Get, $"/v1.1/iot-03/devices/{deviceId}", cancellationToken: ct);
+            _logger?.LogInformation("Getting device information: {deviceId}", deviceId);
+            return await _client.RequestAsync<DeviceInfo?>(HttpMethod.Get, $"/v1.1/iot-03/devices/{deviceId}", cancellationToken: ct);
         }
 
         /// <inheritdoc />
         public async Task<IList<DeviceStatus>?> GetDeviceStatusAsync(DeviceInfo device, CancellationToken ct = default)
         {
-            logger?.LogInformation("Getting device status for device: {deviceId}", device.Id ?? "unknown");
+            _logger?.LogInformation("Getting device status for device: {deviceId}", device.Id ?? "unknown");
             ThrowIfInvalid(device);
             return await GetDeviceStatusAsync(device.Id!, ct);
         }
@@ -52,14 +60,14 @@ namespace Tuya.Net.IoT
         /// <inheritdoc />
         public async Task<IList<DeviceStatus>?> GetDeviceStatusAsync(string deviceId, CancellationToken ct = default)
         {
-            logger?.LogInformation("Getting device status for device: {deviceId}", deviceId);
-            return await client.RequestAsync<IList<DeviceStatus>?>(HttpMethod.Get, $"/v1.0/devices/{deviceId}/status", cancellationToken: ct);
+            _logger?.LogInformation("Getting device status for device: {deviceId}", deviceId);
+            return await _client.RequestAsync<IList<DeviceStatus>?>(HttpMethod.Get, $"/v1.0/devices/{deviceId}/status", cancellationToken: ct);
         }
 
         /// <inheritdoc />
         public async Task<IList<Device>?> GetDevicesByUserAsync(User user, CancellationToken cancellationToken = default)
         {
-            logger?.LogInformation("Getting device list for user: {userId}", user.Id ?? "unknown");
+            _logger?.LogInformation("Getting device list for user: {userId}", user.Id ?? "unknown");
             ThrowIfInvalid(user);
             return await GetDevicesByUserAsync(user.Id!, cancellationToken);
         }
@@ -67,21 +75,21 @@ namespace Tuya.Net.IoT
         /// <inheritdoc />
         public async Task<IList<Device>?> GetDevicesByUserAsync(string userId, CancellationToken ct = default)
         {
-            logger?.LogInformation("Getting device list for user: {userId}", userId);
-            return await client.RequestAsync<IList<Device>?>(HttpMethod.Get, $"/v1.0/users/{userId}/devices", cancellationToken: ct);
+            _logger?.LogInformation("Getting device list for user: {userId}", userId);
+            return await _client.RequestAsync<IList<Device>?>(HttpMethod.Get, $"/v1.0/users/{userId}/devices", cancellationToken: ct);
         }
 
         /// <inheritdoc />
         public async Task<InstructionInfo?> GetDeviceInstructionsAsync(string deviceId, CancellationToken ct = default)
         {
-            logger?.LogInformation("Getting device instructions for device: {deviceId}", deviceId);
-            return await client.RequestAsync<InstructionInfo?>(HttpMethod.Get, $"/v1.0/devices/{deviceId}/functions", cancellationToken: ct);
+            _logger?.LogInformation("Getting device instructions for device: {deviceId}", deviceId);
+            return await _client.RequestAsync<InstructionInfo?>(HttpMethod.Get, $"/v1.0/devices/{deviceId}/functions", cancellationToken: ct);
         }
 
         /// <inheritdoc />
         public async Task<InstructionInfo?> GetDeviceInstructionsAsync(DeviceInfo device, CancellationToken ct = default)
         {
-            logger?.LogInformation("Getting device instructions for device: {deviceId}", device.Id ?? "unknown");
+            _logger?.LogInformation("Getting device instructions for device: {deviceId}", device.Id ?? "unknown");
             ThrowIfInvalid(device);
             return await GetDeviceInstructionsAsync(device.Id!, ct);
         }
@@ -110,8 +118,8 @@ namespace Tuya.Net.IoT
         /// <inheritdoc />
         public async Task<bool> SendCommandListAsync(string deviceId, IList<Command> commands, CancellationToken ct = default)
         {
-            logger?.LogDebug("Sending command on {deviceId}: {commands}", deviceId, commands);
-            return await client.RequestAsync<bool>(HttpMethod.Post, $"/v1.0/devices/{deviceId}/commands", JsonConvert.SerializeObject(new { commands }), cancellationToken: ct);
+            _logger?.LogDebug("Sending command on {deviceId}: {commands}", deviceId, commands);
+            return await _client.RequestAsync<bool>(HttpMethod.Post, $"/v1.0/devices/{deviceId}/commands", JsonConvert.SerializeObject(new { commands }), cancellationToken: ct);
         }
 
         /// <summary>
