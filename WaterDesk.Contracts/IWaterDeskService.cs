@@ -1,11 +1,11 @@
-﻿using Tuya.Net.Data;
+﻿using WaterDesk.Models;
 
 namespace WaterDesk.Contracts;
 
 public interface IWaterDeskService
 {
-    Task<List<Device>> GetDevicesAsync();
+    Task<IList<DeviceDto>> GetDevicesAsync();
 
-    Task GetDeviceInfoAsync();
-    Task<bool> ToggleDeviceSwitchAsync();
+    Task<DeviceDto> GetDeviceInfoAsync();
+    Task<bool> ToggleDeviceSwitchAsync(string deviceId);
 }

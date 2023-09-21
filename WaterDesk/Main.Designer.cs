@@ -40,20 +40,23 @@
             // 
             // gvDevices
             // 
+            gvDevices.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gvDevices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             gvDevices.Location = new Point(12, 55);
             gvDevices.Name = "gvDevices";
             gvDevices.RowTemplate.Height = 25;
-            gvDevices.Size = new Size(486, 203);
+            gvDevices.Size = new Size(885, 203);
             gvDevices.TabIndex = 0;
+            gvDevices.CellClick += gvDevices_CellClick;
+            gvDevices.CellFormatting += gvDevices_CellFormatting;
             // 
             // toolStrip1
             // 
             toolStrip1.Dock = DockStyle.Bottom;
             toolStrip1.Items.AddRange(new ToolStripItem[] { tsLblStatus });
-            toolStrip1.Location = new Point(0, 287);
+            toolStrip1.Location = new Point(0, 284);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(510, 25);
+            toolStrip1.Size = new Size(924, 25);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -81,7 +84,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(510, 312);
+            ClientSize = new Size(924, 309);
             Controls.Add(label1);
             Controls.Add(toolStrip1);
             Controls.Add(gvDevices);

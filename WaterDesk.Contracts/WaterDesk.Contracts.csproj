@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tuya.Net\Tuya.Net.csproj" />
+    <ProjectReference Include="..\WaterDesk.Models\WaterDesk.Models.csproj" />
   </ItemGroup>
 
 </Project>
